@@ -1,8 +1,9 @@
 class Bottle 
-   attr_accessor :link, :name, :price, :rating
+   attr_accessor :link, :name, :price, :rating, :index
     @@bottles = []
 
     def create(hash) 
+        
        hash.each do |key, words| 
         self.send(("#{key}="), words )
        end
@@ -12,22 +13,43 @@ class Bottle
     
        def save 
         @@bottles << self 
+        
        end
     
-    def self.list 
-        @@bottles.sort{ |x,y| x.price <=> y.price}.each.with_index(2) do |item, index| 
-            puts "#{index}) #{item.name} #{item.price}" 
-            
-        end 
-           puts <<-DOC 
+    def self.make_list
+        @@numbered_list = @@bottles.sort{ |x,y| x.price <=> y.price}.map.with_index(2) do 
+             |w,i| w.index = i  
+             w
+       
+    end
+    
+    end
 
-                
-                type the number 
-                befor the ")"
-                for deeper information
-                about the wine
-                   DOC
+    def self.list 
+            puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+            puts "type the corresponding number to view more wine info"
+            puts "____________________________________________________"
+         @@numbered_list.each do |wine|
+            puts "#{wine.index}) #{wine.name} #{wine.price}"
+           
+        end 
+               puts <<-DOC 
+                        
+                        
+                       DOC
     end 
+    def self.find_by_input(input)
+        a = @@numbered_list.find{ |wine| wine.index == input}
+        puts "#{a.name} $#{a.price} rating: #{a.rating}" 
+        puts "type #{input} again for winemaker notes"
+        more = ''
+        while more != 0
+        more = gets.chomp.to_i
+             (input == more) ? (Scrape.scrape_page(a.link)) : (self.list) 
+             
+        end
+    end
+
     
 
 end
