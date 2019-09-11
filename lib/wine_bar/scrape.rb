@@ -23,13 +23,17 @@ class Scrape
        end
    end  
 
-   def self.scrape_page(wine_link)
+   def self.scrape_page(wine_obj)
+    
+    wine_link = wine_obj.link 
+    
     individual_page = Base + wine_link
     docu = Nokogiri::HTML(open(individual_page))
     y = docu.css('.viewMoreModule_text')
     more = docu.css('.viewMoreModule_text')
     
-    @@pages << {
+    @@pages << { 
+    :obj => wine_obj,
     :name => docu.css('.pipName').text,
     :alcohol_percent => docu.css('.mobileProdAttrs').css('.prodAlcoholPercent').css('.prodAlcoholPercent_percent').text,
     :price => docu.css('span.productPrice_price-saleWhole').text,

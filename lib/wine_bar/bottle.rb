@@ -15,7 +15,7 @@ class Bottle
     end
     
     def self.make_list
-        @@numbered_list = @@bottles.sort{ |x,y| x.price <=> y.price}.map.with_index(2) do 
+        @@numbered_list = @@bottles.sort{ |x,y| x.price <=> y.price}.map.with_index(1) do 
              |w,i| w.index = i  
              w
      end
@@ -24,28 +24,17 @@ class Bottle
 
     def self.list 
             @@numbered_list
-        #     puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-        #     puts "type the corresponding number to view more wine info"
-        #     puts "____________________________________________________"
-        #  @@numbered_list.each do |wine|
-        #     puts "#{wine.index}) #{wine.name} #{wine.price}"
-           
-       # end 
-    #            puts <<-DOC 
-                        
-                        
-    #                    DOC
      end 
     def self.find_by_input(input)
         a = @@numbered_list.find{ |wine| wine.index == input}
-        puts "#{a.name} $#{a.price} rating: #{a.rating}" 
-        puts "type #{input} again for winemaker notes"
-        more = ''
-        while more != 0
-        more = gets.chomp.to_i
-             (input == more) ? (Scrape.scrape_page(a.link)) : (self.list) 
+        # puts "#{a.name} $#{a.price} rating: #{a.rating}" 
+        # puts "type #{input} again for winemaker notes"
+        # more = ''
+        # while more != 0
+        # more = gets.chomp.to_i
+        #      (input == more) ? (Scrape.scrape_page(a.link)) : (self.list) 
              
-        end
+        # end
     end
 
     
