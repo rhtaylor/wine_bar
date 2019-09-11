@@ -8,8 +8,8 @@ class Scrape
             
         doc = Nokogiri::HTML(open(index_url))
         container = doc.css('.prodList')
-       wines = container.css('.prodItem')
-     wines.each do |wine|
+        wines = container.css('.prodItem')
+        wines.each do |wine|
        @@menu << {
        :link => wine.css('.prodItemInfo_link').attribute('href').value,
        :name => wine.css('.prodItemInfo_name').text,
@@ -19,7 +19,6 @@ class Scrape
 
        end
        @@menu.each do |item| 
-        
         Bottle.new.create(item)
        end
    end  

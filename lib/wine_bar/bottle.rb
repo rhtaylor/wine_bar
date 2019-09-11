@@ -3,41 +3,39 @@ class Bottle
     @@bottles = []
 
     def create(hash) 
-        
-       hash.each do |key, words| 
+        hash.each do |key, words| 
         self.send(("#{key}="), words )
-       end
-    save
+        end
+        save
     end
        
     
-       def save 
+    def save 
         @@bottles << self 
-        
-       end
+    end
     
     def self.make_list
         @@numbered_list = @@bottles.sort{ |x,y| x.price <=> y.price}.map.with_index(2) do 
              |w,i| w.index = i  
              w
-       
-    end
+     end
     
     end
 
     def self.list 
-            puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-            puts "type the corresponding number to view more wine info"
-            puts "____________________________________________________"
-         @@numbered_list.each do |wine|
-            puts "#{wine.index}) #{wine.name} #{wine.price}"
+            @@numbered_list
+        #     puts "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+        #     puts "type the corresponding number to view more wine info"
+        #     puts "____________________________________________________"
+        #  @@numbered_list.each do |wine|
+        #     puts "#{wine.index}) #{wine.name} #{wine.price}"
            
-        end 
-               puts <<-DOC 
+       # end 
+    #            puts <<-DOC 
                         
                         
-                       DOC
-    end 
+    #                    DOC
+     end 
     def self.find_by_input(input)
         a = @@numbered_list.find{ |wine| wine.index == input}
         puts "#{a.name} $#{a.price} rating: #{a.rating}" 

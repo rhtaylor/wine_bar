@@ -17,7 +17,7 @@ class Cli
         puts "================="
         puts "                 "
         puts "type 1 for list of wine"
-        
+        puts "                       "
         puts "type 0 to exit "
         input = gets.chomp.to_i
         
@@ -33,7 +33,19 @@ class Cli
     end 
 end
     def menu 
-       Bottle.list
+       wines = Bottle.list
+       
+            puts "<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>"
+            puts "type the corresponding number to view more wine info"
+            puts "____________________________________________________"
+         wines.each do |wine|
+            puts "#{wine.index}) #{wine.name} #{wine.price}"
+            puts <<-DOC 
+                            the the wine number again
+                            for winemaker notes
+                            
+                    DOC
+       end 
     end
     def find_by_input(input)
         Bottle.find_by_input(input)
