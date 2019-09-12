@@ -6,7 +6,10 @@ class Scrape
         index_url = Base + "/list/wine/7155?sortBy=savings&pricemax=90"
         
             
-        doc = Nokogiri::HTML(open(index_url))
+        if   doc = Nokogiri::HTML(open(index_url))
+        
+        
+
         container = doc.css('.prodList')
         wines = container.css('.prodItem')
         wines.each do |wine|
@@ -21,6 +24,13 @@ class Scrape
        @@menu.each do |item| 
         Bottle.new.create(item)
        end
+    else  
+        begin
+         raise Custom_error
+         rescue Custom_error => error
+          puts error.message 
+         end
+        end
    end  
 
    def self.scrape_page(wine_obj)
