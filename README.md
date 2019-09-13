@@ -1,11 +1,14 @@
 # WineBar
-
+This is a CLI app from scraped data using open-uri and nokogiri. It goes 2 levels deep by crawling the site when the user types in the porper input. 
+#=>
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/wine_bar`. To experiment with that code, run `bin/console` for an interactive prompt.
-
+#=>
 TODO: Delete this and the text above, and describe your gem
 
 ## Installation
-
+As of current this gem is for academic purposes only. You may clone this repo and use it as you see fit. 
+The exeacute file is './bin/run'. You must give bash permission to execute this file with chmod +x run  for the run file in the bin directory 
+#=>
 Add this line to your application's Gemfile:
 
 ```ruby
@@ -22,7 +25,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+This is best for scraping and crawling using nokogiri
 
 ## Development
 
