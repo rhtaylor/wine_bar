@@ -4,18 +4,12 @@ class Scrape
     @@pages = []
     def self.open_page(index_url)
       return doc =  Nokogiri::HTML(open(index_url))
-        # rescue Net::OpenTimeoutError => error 
-        #     raise Custom_error => error
-        #      puts error.message  
+          
     end
     def self.index
         index_url = Base + "/list/wine/7155?sortBy=savings&pricemax=90"
         doc = open_page(index_url)
-        #begin
-        #doc = Nokogiri::HTML(open(index_url))
-        #rescue (Net::OpenTimeoutError) => e.message
-            
-       # end
+       
 
         container = doc.css('.prodList')
         wines = container.css('.prodItem')
@@ -61,7 +55,7 @@ class Scrape
     :rating => docu.css('span.averageRating_average').first.text
     }
     
-    Page.create_find_by_name( @@pages.last )
+    Page.create_obj( @@pages.last )
    end
 def self.pages 
     @@pages 

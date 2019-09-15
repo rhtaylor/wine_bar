@@ -95,7 +95,7 @@ end
             
        if   method_input == selection.index
         
-            response = Scrape.scrape_page(selection)
+            response = Page.pages_find_or_create(selection)
                 
             view_2(response, method_input)
 
