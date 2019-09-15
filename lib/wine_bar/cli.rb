@@ -21,7 +21,7 @@ class Cli
             puts '+++++++++++++++++++++++++++++++++'
             puts 'type in a different number please'
             puts '+++++++++++++++++++++++++++++++++'
-            controller  
+            inputs
         end
     end
     #code is very dry as this method is used many times 
@@ -127,13 +127,16 @@ end
     end
     end
     def more(response)
-        puts response.name
+        puts "Name: #{response.name}"
+        puts "Origin: #{response.origin}"
+        puts "A narrative on the wine:"
         puts response.more
         puts response.winemaker_notes 
         puts "_________________________________" 
         puts "      no additional info"
         puts "  you can choose another wine"
         menu
+        
     end
 
         
@@ -142,7 +145,7 @@ end
              puts "      WHOA coder     "
              puts "type a smaller number!"
              puts '______________________' 
-             menu
+             
     end
 
     def exit 
