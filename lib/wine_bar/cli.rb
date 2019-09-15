@@ -1,13 +1,41 @@
 class Cli 
 
     def run
+
         puts 'loading from cyberspace'
-        
+        # goes to site for scraping. 
         Scrape.index
+        #goes to Bottle class to create Bottle instance objects
         Bottle.make_list
+        #calls first part of user display and interaction
         controller  
     end
-
+    # instance method inputs drys out the code here and in deeper in program
+    def inputs 
+        intake = gets.chomp 
+        number = Bottle.list.count.to_s
+        if  intake == '0' || intake == '101'|| ('1'..number).include?(intake) 
+        input = intake.to_i 
+        input
+        else 
+            puts '+++++++++++++++++++++++++++++++++'
+            puts 'type in a different number please'
+            puts '+++++++++++++++++++++++++++++++++'
+            controller  
+        end
+    end
+    #code is very dry as this method is used many times 
+    def control_flow(var)
+        if var == 101
+            menu 
+        elsif var == 0 
+            exit 
+        elsif var > 0 && var <= Bottle.list.count
+            find_by_input(var)
+        elsif var != 0 && var != 101 && var > Bottle.list.count
+             error_1
+        end  
+    end
     def controller
         input = ''
         unless input == 0
@@ -18,26 +46,26 @@ class Cli
         puts "      B  A  R    "
         puts "================="
         puts "                 "
-        puts "type 101 for list of wine"
-        puts "                       "
-        puts "type 0 to exit "
-        input = gets.chomp.to_i
+        puts "type 101 for numbered list of wines"
+        puts "                                     "
+        puts "type a number from 1 to #{Bottle.list.count} for info on a wine"
+        puts "                                     "
+        puts "type 0 to exit" 
         
-        if input == 101
-            menu 
-        elsif input == 0 
-            exit 
-        elsif input > 0 && input < 26 
-            find_by_input(input)
-        elsif input != 0 && input != 101
-             error_1
-        end 
-    end 
+        # by nature of the to_i method a check was put in place 
+        # to ensure the user did not accidently type in a sting
+        # that would be converted to 0 and cause the program to exit
+        # much of the code here and in the future was put in 
+        # to ensure user ease and make the code more robust 
+    
+        input = inputs
+        control_flow(input)
+        end
 end 
 
     def menu 
            wines = Bottle.list   
-            second_input = '' 
+            second_input = ''
             unless second_input == 0 
             puts "<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>"
             puts "type the corresponding number to view more wine info"
@@ -45,14 +73,9 @@ end
                   wines.each do |wine|
             puts "#{wine.index}) #{wine.name} #{wine.price}"
                   end
-            second_input = gets.chomp.to_i 
-        if second_input > 0 && second_input < 26 
-            find_by_input(second_input)
-        elsif second_input == 0 
-            exit
-        elsif second_input > wines.count && second_input != 0
-             error_1  
-        end
+            second_input = inputs
+            control_flow(second_input)
+        
     end 
        
     end
@@ -68,7 +91,7 @@ end
         puts "           for more info                "
         puts "           provided by the winemaker    "
         # reseting input and extending user control functionality 
-            method_input = gets.chomp.to_i 
+            method_input = inputs
             
        if   method_input == selection.index
         
@@ -76,13 +99,10 @@ end
                 
             view_2(response, method_input)
 
-       elsif  method_input != 0 && method_input != selection.index && !(method_input > Bottle.list.count)
-            find_by_input(method_input)
-       elsif method_input > Bottle.list.count && method_input != 101 
-            error_1
-       elsif method_input == 0 
+       else 
+            control_flow(method_input)
         
-        exit 
+        
          
        end
     end
@@ -97,19 +117,17 @@ end
         puts "                                            "
         puts "Type #{old_input} again for more!!"
         
-        next_input = gets.chomp.to_i
+        next_input = inputs
         
         if next_input == old_input
             more(response)
-        elsif  next_input != 0 && next_input != old_input && !(next_input > 25)
-              find_by_input(next_input)
-        elsif next_input > Bottle.list.count && next_input != 101 
-            error_1      
-        end
+        else 
+            control_flow(next_input)
     end
     end
- 
+    end
     def more(response)
+        puts response.name
         puts response.more
         puts response.winemaker_notes 
         puts "_________________________________" 
