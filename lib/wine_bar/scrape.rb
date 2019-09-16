@@ -1,13 +1,14 @@
 class Scrape 
-    Base = 'http://www.wine.com'
+    BASE = 'http://www.wine.com'
     @@all = []
     @@pages = []
     def self.open_page(index_url)
       return doc =  Nokogiri::HTML(open(index_url))
-          
+          rescue SocketError => e 
+            raise Custom_error, e.message
     end
     def self.index
-        index_url = Base + "/list/wine/7155?sortBy=savings&pricemax=90"
+        index_url = BASE + "/list/wine/7155?sortBy=savings&pricemax=90"
         doc = open_page(index_url)
        
 
@@ -38,7 +39,7 @@ class Scrape
     
     wine_link = wine_obj.link 
     
-    individual_page = Base + wine_link
+    individual_page = BASE + wine_link
     docu = Nokogiri::HTML(open(individual_page))
 
     more = docu.css('.viewMoreModule_text')
