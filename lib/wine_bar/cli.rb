@@ -17,25 +17,34 @@ class Cli
         if  intake == '0' || intake == '101'|| ('1'..number).include?(intake) 
         input = intake.to_i 
         input
-        else 
+        elsif intake == 'r'
+            rating(intake) 
+        elsif
             puts '+++++++++++++++++++++++++++++++++'
-            puts 'type in a different number please'
+            puts 'type in a valid number please'
             puts '+++++++++++++++++++++++++++++++++'
             inputs
         end
     end
     #code is very dry as this method is used many times 
     def control_flow(var)
+        
         if var == 101
-            menu 
+            price = Bottle.list
+            menu(price) 
         elsif var == 0 
             exit 
-        elsif var > 0 && var <= Bottle.list.count
+        elsif (var > 0) && var <= Bottle.list.count
             find_by_input(var)
         elsif var != 0 && var != 101 && var > Bottle.list.count
              error_1
         end  
     end
+
+    def rating(intake)
+        rated = Bottle.list.sort{ |a,b| b.rating <=> a.rating }
+        menu(rated)
+    end 
     def controller
         input = ''
         unless input == 0
@@ -50,6 +59,8 @@ class Cli
         puts "                                     "
         puts "type a number from 1 to #{Bottle.list.count} for info on a wine"
         puts "                                     "
+        puts 'type r to list by rating'
+        puts '                        '
         puts "type 0 to exit" 
         
         # by nature of the to_i method a check was put in place 
@@ -63,8 +74,8 @@ class Cli
         end
 end 
 
-    def menu 
-           wines = Bottle.list   
+    def menu(wines = price)
+            
             second_input = ''
             unless second_input == 0 
             puts "<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>"
@@ -135,7 +146,8 @@ end
         puts "_________________________________" 
         puts "      no additional info"
         puts "  you can choose another wine"
-        menu
+        price = Bottle.list
+        menu(price)
         
     end
 

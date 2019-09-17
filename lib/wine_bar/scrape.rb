@@ -4,6 +4,8 @@ class Scrape
     @@pages = []
     def self.open_page(index_url)
       return doc =  Nokogiri::HTML(open(index_url))
+          rescue Net::OpenTimeout => e 
+            raise Custom_error, e.message
           rescue SocketError => e 
             raise Custom_error, e.message
     end
@@ -26,13 +28,7 @@ class Scrape
        @@all.each do |item| 
         Bottle.new.create(item)
        end
-     #else  
-    #     begin
-    #      raise Custom_error
-    #      rescue Custom_error => error
-    #       puts error.message 
-    #      end
-    #     end
+   
    end  
 
    def self.scrape_page(wine_obj)
