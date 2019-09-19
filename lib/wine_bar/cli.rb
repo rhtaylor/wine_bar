@@ -18,7 +18,8 @@ class Cli
         input = intake.to_i 
         input
         elsif intake == 'r'
-            rating(intake) 
+            inputs = intake 
+            intake
         elsif
             puts '+++++++++++++++++++++++++++++++++'
             puts 'type in a valid number please'
@@ -28,20 +29,23 @@ class Cli
     end
     #code is very dry as this method is used many times 
     def control_flow(var)
-        
-        if var == 101
+        if var == 'r'
+            rated = Bottle.list.sort{ |a,b| b.rating <=> a.rating }
+            menu(rated)
+        elsif var == 101
             price = Bottle.list
             menu(price) 
         elsif var == 0 
             exit 
         elsif (var > 0) && var <= Bottle.list.count
             find_by_input(var)
-        elsif var != 0 && var != 101 && var > Bottle.list.count
+        else var != 0 && var != 101 && var > Bottle.list.count
              error_1
-        end  
+        
+            end  
     end
 
-    def rating(intake)
+    def rating
         rated = Bottle.list.sort{ |a,b| b.rating <=> a.rating }
         menu(rated)
     end 
@@ -69,8 +73,10 @@ class Cli
         # much of the code here and in the future was put in 
         # to ensure user ease and make the code more robust 
     
-        input = inputs
+        input = inputs 
+       
         control_flow(input)
+        
         end
 end 
 
@@ -82,12 +88,14 @@ end
             puts "type the corresponding number to view more wine info"
             puts "__________________________________________________________________"
                   wines.each do |wine|
-            puts "#{wine.index}) #{wine.name} #{wine.price}"
+            puts "#{wine.index} #{wine.name} #{wine.price}"
                   end
-            second_input = inputs
-            control_flow(second_input)
+            second_input = inputs 
+            
+            control_flow(second_input) 
+            end
         
-    end 
+    
        
     end
     def find_by_input(method_input)
